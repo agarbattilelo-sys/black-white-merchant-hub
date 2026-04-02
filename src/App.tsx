@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ProductProvider } from "./contexts/ProductContext";
 import { AdminLayout } from "./components/AdminLayout";
 import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
@@ -20,20 +21,22 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <AdminLayout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/reels" element={<Reels />} />
-            <Route path="/banners" element={<Banners />} />
-            <Route path="/collections" element={<CollectionBanners />} />
-            <Route path="/new-releases" element={<NewReleases />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AdminLayout>
-      </BrowserRouter>
+      <ProductProvider>
+        <BrowserRouter>
+          <AdminLayout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/reels" element={<Reels />} />
+              <Route path="/banners" element={<Banners />} />
+              <Route path="/collections" element={<CollectionBanners />} />
+              <Route path="/new-releases" element={<NewReleases />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AdminLayout>
+        </BrowserRouter>
+      </ProductProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
