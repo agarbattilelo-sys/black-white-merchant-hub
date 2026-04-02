@@ -7,43 +7,12 @@ import { Switch } from "@/components/ui/switch";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
-
-interface SubItem {
-  label: string;
-  href: string;
-}
-
-interface CategorySliderItem {
-  id: string;
-  label: string;
-  href: string;
-  hasDropdown: boolean;
-  sub: SubItem[];
-  active: boolean;
-}
-
-const initialItems: CategorySliderItem[] = [
-  { id: "1", label: "Shop all", href: "/", hasDropdown: false, sub: [], active: true },
-  { id: "2", label: "New Release", href: "/", hasDropdown: false, sub: [], active: true },
-  { id: "3", label: "Topwear", href: "#", hasDropdown: true, sub: [
-    { label: "Oversized T-Shirts", href: "#" }, { label: "Boxy Fit Tees", href: "#" },
-    { label: "Acid Wash Tees", href: "#" }, { label: "Polo T-Shirts", href: "#" },
-  ], active: true },
-  { id: "4", label: "Bottoms", href: "#", hasDropdown: true, sub: [
-    { label: "Cargo Pants", href: "#" }, { label: "Denim Jeans", href: "#" },
-    { label: "Joggers", href: "#" }, { label: "Parachute Pants", href: "#" },
-  ], active: true },
-  { id: "5", label: "Winterwear", href: "#", hasDropdown: true, sub: [
-    { label: "Hoodies", href: "#" }, { label: "Sweatshirts", href: "#" },
-    { label: "Varsity Jackets", href: "#" }, { label: "Denim Jackets", href: "#" },
-  ], active: true },
-  { id: "6", label: "Just Caps", href: "/", hasDropdown: false, sub: [], active: true },
-];
+import { useCategorySlider, type CategorySliderItem, type SubItem } from "@/contexts/CategorySliderContext";
 
 const emptyForm = { label: "", href: "/", hasDropdown: false, sub: [] as SubItem[], active: true };
 
 export default function CategorySlider() {
-  const [items, setItems] = useState<CategorySliderItem[]>(initialItems);
+  const { sliderItems: items, setSliderItems: setItems } = useCategorySlider();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<CategorySliderItem | null>(null);
   const [form, setForm] = useState(emptyForm);
@@ -127,7 +96,6 @@ export default function CategorySlider() {
         Manage the navigation menu items shown in the header slider. Items with dropdowns expand to show subcategories.
       </p>
 
-      {/* List */}
       <div className="space-y-2">
         {items.map((item, i) => (
           <div key={item.id}>
