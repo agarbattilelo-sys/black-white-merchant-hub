@@ -20,7 +20,7 @@ const navItems = [
   { title: "Banners", url: "/banners", icon: Image },
   { title: "Collections", url: "/collections", icon: Layers },
   { title: "New Releases", url: "/new-releases", icon: Sparkles },
-  { title: "Categories", url: "/categories", icon: Grid3X3 },
+  { title: "Categories Banner", url: "/categories", icon: Grid3X3 },
   { title: "Orders", url: "/orders", icon: ShoppingCart },
 ];
 

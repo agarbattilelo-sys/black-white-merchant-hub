@@ -56,7 +56,7 @@ export default function Categories() {
   return (
     <div>
       <div className="admin-page-header">
-        <h1 className="admin-page-title">Category Grid</h1>
+        <h1 className="admin-page-title">Categories Banner</h1>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button onClick={openAdd}><Plus className="h-4 w-4 mr-2" />Add Category</Button>
