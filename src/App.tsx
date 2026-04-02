@@ -45,6 +45,7 @@ const App = () => (
           </AdminLayout>
         </BrowserRouter>
       </ProductProvider>
+      </CategorySliderProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
