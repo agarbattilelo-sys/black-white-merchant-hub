@@ -14,7 +14,7 @@ import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
