@@ -22,6 +22,7 @@ const navItems = [
   { title: "New Releases", url: "/new-releases", icon: Sparkles },
   { title: "Categories Banner", url: "/categories", icon: Grid3X3 },
   { title: "Category Slider", url: "/category-slider", icon: SlidersHorizontal },
+  { title: "Announcements", url: "/announcements", icon: Megaphone },
   { title: "Orders", url: "/orders", icon: ShoppingCart },
 ];
 

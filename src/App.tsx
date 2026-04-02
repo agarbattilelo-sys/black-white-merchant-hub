@@ -37,6 +37,7 @@ const App = () => (
               <Route path="/orders" element={<Orders />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/category-slider" element={<CategorySlider />} />
+              <Route path="/announcements" element={<Announcements />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AdminLayout>
