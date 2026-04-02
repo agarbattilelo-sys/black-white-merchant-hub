@@ -35,6 +35,7 @@ const App = () => (
               <Route path="/new-releases" element={<NewReleases />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/categories" element={<Categories />} />
+              <Route path="/category-slider" element={<CategorySlider />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AdminLayout>
