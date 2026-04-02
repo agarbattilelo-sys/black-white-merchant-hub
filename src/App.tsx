@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
 import Reels from "./pages/Reels";
 import Banners from "./pages/Banners";
+import CollectionBanners from "./pages/CollectionBanners";
 import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
 import NotFound from "./pages/NotFound";
