@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProductProvider } from "./contexts/ProductContext";
+import { CategorySliderProvider } from "./contexts/CategorySliderContext";
 import { AdminLayout } from "./components/AdminLayout";
 import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
@@ -24,6 +25,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <CategorySliderProvider>
       <ProductProvider>
         <BrowserRouter>
           <AdminLayout>
@@ -43,6 +45,7 @@ const App = () => (
           </AdminLayout>
         </BrowserRouter>
       </ProductProvider>
+      </CategorySliderProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -3,6 +3,7 @@ import { Plus, Pencil, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCategorySlider } from "@/contexts/CategorySliderContext";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +27,7 @@ const emptyProduct: Omit<Product, "id"> = {
 
 export default function Products() {
   const { products, setProducts } = useProducts();
+  const { allCategoryNames } = useCategorySlider();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState<Omit<Product, "id">>(emptyProduct);
@@ -113,7 +115,7 @@ export default function Products() {
                     <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
                       <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                       <SelectContent>
-                        {["T-Shirts", "Pants", "Jackets", "Footwear", "Hoodies", "Shirts", "Denim", "Accessories"].map((c) => (
+                        {allCategoryNames.map((c) => (
                           <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
                       </SelectContent>
