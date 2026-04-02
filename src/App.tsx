@@ -33,6 +33,7 @@ const App = () => (
               <Route path="/collections" element={<CollectionBanners />} />
               <Route path="/new-releases" element={<NewReleases />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/categories" element={<Categories />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AdminLayout>
