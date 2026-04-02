@@ -18,6 +18,7 @@ const navItems = [
   { title: "Products", url: "/products", icon: Package },
   { title: "Instagram Reels", url: "/reels", icon: Instagram },
   { title: "Banners", url: "/banners", icon: Image },
+  { title: "Collections", url: "/collections", icon: Layers },
   { title: "New Releases", url: "/new-releases", icon: Sparkles },
   { title: "Orders", url: "/orders", icon: ShoppingCart },
 ];
