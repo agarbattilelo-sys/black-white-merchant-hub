@@ -14,6 +14,7 @@ import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
 import Categories from "./pages/Categories";
 import CategorySlider from "./pages/CategorySlider";
+import Announcements from "./pages/Announcements";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({});
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/orders" element={<Orders />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/category-slider" element={<CategorySlider />} />
+              <Route path="/announcements" element={<Announcements />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AdminLayout>

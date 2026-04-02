@@ -1,4 +1,4 @@
-import { Package, Instagram, Image, Sparkles, ShoppingCart, LayoutDashboard, Layers, Grid3X3, SlidersHorizontal } from "lucide-react";
+import { Package, Instagram, Image, Sparkles, ShoppingCart, LayoutDashboard, Layers, Grid3X3, SlidersHorizontal, Megaphone } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -22,6 +22,7 @@ const navItems = [
   { title: "New Releases", url: "/new-releases", icon: Sparkles },
   { title: "Categories Banner", url: "/categories", icon: Grid3X3 },
   { title: "Category Slider", url: "/category-slider", icon: SlidersHorizontal },
+  { title: "Announcements", url: "/announcements", icon: Megaphone },
   { title: "Orders", url: "/orders", icon: ShoppingCart },
 ];
 
