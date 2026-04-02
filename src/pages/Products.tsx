@@ -7,104 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
+import { useProducts, type Product, type ProductOffer } from "@/contexts/ProductContext";
 
 const ALL_SIZES = ["26", "28", "30", "32", "34", "36", "38", "XS", "S", "M", "L", "XL", "XXL"];
-
-interface ProductOffer {
-  amount: string;
-  condition: string;
-  code: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice: number;
-  category: string;
-  stock: number;
-  description: string;
-  stylingTip: string;
-  images: string[];
-  sizes: string[];
-  material: string;
-  fit: string;
-  print: string;
-  pockets: string;
-  waistband: string;
-  care: string;
-  offers: ProductOffer[];
-  exchangePolicy: string[];
-  active: boolean;
-}
-
-const initialProducts: Product[] = [
-  {
-    id: "1",
-    name: "Venom Black Cotton Pants",
-    slug: "venom-black-cotton-pants",
-    price: 1699,
-    originalPrice: 1999,
-    category: "Pants",
-    stock: 45,
-    description: "Venom Black Cotton Pants bring a sharp, statement edge to everyday wear. Crafted from heavyweight, high-GSM cotton, these bottoms offer a structured yet relaxed fit.",
-    stylingTip: "Pair it with Deadlines Heavyweight T-shirt and chunky sneakers.",
-    images: ["/pdp-main-1.jpg", "/pdp-main-2.jpg", "/pdp-main-3.jpg", "/pdp-main-4.jpg"],
-    sizes: ["26", "28", "30", "32", "34", "36"],
-    material: "100% Premium Cotton (380 GSM)",
-    fit: "Relaxed / Straight",
-    print: "Venom graphic screen print",
-    pockets: "2 side + 1 back",
-    waistband: "Elastic with drawstring",
-    care: "Machine wash cold, tumble dry low",
-    offers: [
-      { amount: "₹250 OFF", condition: "Prepaid above ₹2599", code: "LEVEL1FLEX" },
-      { amount: "₹500 OFF", condition: "Prepaid above ₹3499", code: "LEVEL2FLEX" },
-    ],
-    exchangePolicy: [
-      "Easy 7-day exchange from delivery date",
-      "Product must be unused with original tags",
-      "No questions asked — hassle-free process",
-    ],
-    active: true,
-  },
-  {
-    id: "2",
-    name: "Immortal Graphic Tee",
-    slug: "immortal-graphic-tee",
-    price: 1399,
-    originalPrice: 1699,
-    category: "T-Shirts",
-    stock: 30,
-    description: "Bold graphic tee with premium cotton construction.",
-    stylingTip: "Goes well with cargo pants and boots.",
-    images: ["/product-1.jpg"],
-    sizes: ["S", "M", "L", "XL"],
-    material: "100% Cotton (220 GSM)",
-    fit: "Regular",
-    print: "Front graphic print",
-    pockets: "N/A",
-    waistband: "N/A",
-    care: "Machine wash cold",
-    offers: [],
-    exchangePolicy: ["Easy 7-day exchange from delivery date"],
-    active: true,
-  },
-];
 
 const emptyProduct: Omit<Product, "id"> = {
   name: "", slug: "", price: 0, originalPrice: 0, category: "", stock: 0,
@@ -115,7 +25,7 @@ const emptyProduct: Omit<Product, "id"> = {
 };
 
 export default function Products() {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const { products, setProducts } = useProducts();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState<Omit<Product, "id">>(emptyProduct);
@@ -162,7 +72,6 @@ export default function Products() {
     imgs[index] = value;
     setForm({ ...form, images: imgs });
   };
-
   const addImage = () => setForm({ ...form, images: [...form.images, ""] });
   const removeImage = (i: number) => setForm({ ...form, images: form.images.filter((_, idx) => idx !== i) });
 
@@ -187,39 +96,20 @@ export default function Products() {
               <DialogTitle className="font-heading">{editing ? "Edit Product" : "Add Product"}</DialogTitle>
             </DialogHeader>
             <div className="grid gap-5 py-2">
-
               {/* Basic Info */}
               <fieldset className="border border-border rounded-md p-4 space-y-4">
                 <legend className="font-heading text-xs uppercase tracking-widest px-2 text-muted-foreground">Basic Info</legend>
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>Product Name *</Label>
-                    <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: generateSlug(e.target.value) })} placeholder="Venom Black Cotton Pants" />
-                  </div>
-                  <div>
-                    <Label>Slug</Label>
-                    <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="auto-generated" className="text-muted-foreground" />
-                  </div>
+                  <div><Label>Product Name *</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: generateSlug(e.target.value) })} placeholder="Venom Black Cotton Pants" /></div>
+                  <div><Label>Slug</Label><Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="auto-generated" className="text-muted-foreground" /></div>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <Label>Sale Price (₹) *</Label>
-                    <Input type="number" value={form.price || ""} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} />
-                  </div>
-                  <div>
-                    <Label>Original Price (₹)</Label>
-                    <Input type="number" value={form.originalPrice || ""} onChange={(e) => setForm({ ...form, originalPrice: Number(e.target.value) })} />
-                  </div>
-                  <div>
-                    <Label>Discount</Label>
-                    <div className="h-9 flex items-center px-3 border border-border rounded-md bg-muted text-sm font-heading">
-                      {saveDiscount > 0 ? `SAVE ${saveDiscount}%` : "—"}
-                    </div>
-                  </div>
+                  <div><Label>Sale Price (₹) *</Label><Input type="number" value={form.price || ""} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} /></div>
+                  <div><Label>Original Price (₹)</Label><Input type="number" value={form.originalPrice || ""} onChange={(e) => setForm({ ...form, originalPrice: Number(e.target.value) })} /></div>
+                  <div><Label>Discount</Label><div className="h-9 flex items-center px-3 border border-border rounded-md bg-muted text-sm font-heading">{saveDiscount > 0 ? `SAVE ${saveDiscount}%` : "—"}</div></div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>Category</Label>
+                  <div><Label>Category</Label>
                     <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
                       <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                       <SelectContent>
@@ -229,10 +119,7 @@ export default function Products() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label>Stock</Label>
-                    <Input type="number" value={form.stock || ""} onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })} />
-                  </div>
+                  <div><Label>Stock</Label><Input type="number" value={form.stock || ""} onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })} /></div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Switch checked={form.active} onCheckedChange={(v) => setForm({ ...form, active: v })} />
@@ -246,9 +133,7 @@ export default function Products() {
                 {form.images.map((img, i) => (
                   <div key={i} className="flex gap-2">
                     <Input value={img} onChange={(e) => updateImage(i, e.target.value)} placeholder={`Image URL ${i + 1}`} className="flex-1" />
-                    {form.images.length > 1 && (
-                      <Button variant="ghost" size="icon" onClick={() => removeImage(i)}><Trash2 className="h-3.5 w-3.5" /></Button>
-                    )}
+                    {form.images.length > 1 && <Button variant="ghost" size="icon" onClick={() => removeImage(i)}><Trash2 className="h-3.5 w-3.5" /></Button>}
                   </div>
                 ))}
                 <Button variant="outline" size="sm" onClick={addImage}><Plus className="h-3.5 w-3.5 mr-1" />Add Image</Button>
@@ -259,45 +144,31 @@ export default function Products() {
                 <legend className="font-heading text-xs uppercase tracking-widest px-2 text-muted-foreground">Available Sizes</legend>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {ALL_SIZES.map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => toggleSize(size)}
-                      className={`w-11 h-11 rounded-full border-2 text-xs font-medium transition-all ${
-                        form.sizes.includes(size)
-                          ? "bg-foreground text-background border-foreground"
-                          : "bg-transparent text-foreground border-border hover:border-foreground/50"
-                      }`}
-                    >
+                    <button key={size} type="button" onClick={() => toggleSize(size)}
+                      className={`w-11 h-11 rounded-full border-2 text-xs font-medium transition-all ${form.sizes.includes(size) ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/50"}`}>
                       {size}
                     </button>
                   ))}
                 </div>
               </fieldset>
 
-              {/* Description & Styling */}
+              {/* Description */}
               <fieldset className="border border-border rounded-md p-4 space-y-4">
                 <legend className="font-heading text-xs uppercase tracking-widest px-2 text-muted-foreground">Description</legend>
-                <div>
-                  <Label>Product Description</Label>
-                  <Textarea rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-                </div>
-                <div>
-                  <Label>Styling Tip</Label>
-                  <Input value={form.stylingTip} onChange={(e) => setForm({ ...form, stylingTip: e.target.value })} placeholder="Pair it with..." />
-                </div>
+                <div><Label>Product Description</Label><Textarea rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
+                <div><Label>Styling Tip</Label><Input value={form.stylingTip} onChange={(e) => setForm({ ...form, stylingTip: e.target.value })} placeholder="Pair it with..." /></div>
               </fieldset>
 
               {/* Product Details */}
               <fieldset className="border border-border rounded-md p-4 space-y-4">
                 <legend className="font-heading text-xs uppercase tracking-widest px-2 text-muted-foreground">Product Details</legend>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><Label>Material</Label><Input value={form.material} onChange={(e) => setForm({ ...form, material: e.target.value })} placeholder="100% Cotton (380 GSM)" /></div>
-                  <div><Label>Fit</Label><Input value={form.fit} onChange={(e) => setForm({ ...form, fit: e.target.value })} placeholder="Relaxed / Straight" /></div>
-                  <div><Label>Print / Design</Label><Input value={form.print} onChange={(e) => setForm({ ...form, print: e.target.value })} placeholder="Screen print" /></div>
-                  <div><Label>Pockets</Label><Input value={form.pockets} onChange={(e) => setForm({ ...form, pockets: e.target.value })} placeholder="2 side + 1 back" /></div>
-                  <div><Label>Waistband</Label><Input value={form.waistband} onChange={(e) => setForm({ ...form, waistband: e.target.value })} placeholder="Elastic with drawstring" /></div>
-                  <div><Label>Care Instructions</Label><Input value={form.care} onChange={(e) => setForm({ ...form, care: e.target.value })} placeholder="Machine wash cold" /></div>
+                  <div><Label>Material</Label><Input value={form.material} onChange={(e) => setForm({ ...form, material: e.target.value })} /></div>
+                  <div><Label>Fit</Label><Input value={form.fit} onChange={(e) => setForm({ ...form, fit: e.target.value })} /></div>
+                  <div><Label>Print / Design</Label><Input value={form.print} onChange={(e) => setForm({ ...form, print: e.target.value })} /></div>
+                  <div><Label>Pockets</Label><Input value={form.pockets} onChange={(e) => setForm({ ...form, pockets: e.target.value })} /></div>
+                  <div><Label>Waistband</Label><Input value={form.waistband} onChange={(e) => setForm({ ...form, waistband: e.target.value })} /></div>
+                  <div><Label>Care Instructions</Label><Input value={form.care} onChange={(e) => setForm({ ...form, care: e.target.value })} /></div>
                 </div>
               </fieldset>
 
@@ -306,9 +177,9 @@ export default function Products() {
                 <legend className="font-heading text-xs uppercase tracking-widest px-2 text-muted-foreground">Available Offers</legend>
                 {form.offers.map((offer, i) => (
                   <div key={i} className="flex gap-2 items-end">
-                    <div className="flex-1"><Label className="text-xs">Amount</Label><Input value={offer.amount} onChange={(e) => updateOffer(i, "amount", e.target.value)} placeholder="₹250 OFF" /></div>
-                    <div className="flex-1"><Label className="text-xs">Condition</Label><Input value={offer.condition} onChange={(e) => updateOffer(i, "condition", e.target.value)} placeholder="Prepaid above ₹2599" /></div>
-                    <div className="flex-1"><Label className="text-xs">Code</Label><Input value={offer.code} onChange={(e) => updateOffer(i, "code", e.target.value)} placeholder="LEVEL1FLEX" /></div>
+                    <div className="flex-1"><Label className="text-xs">Amount</Label><Input value={offer.amount} onChange={(e) => updateOffer(i, "amount", e.target.value)} /></div>
+                    <div className="flex-1"><Label className="text-xs">Condition</Label><Input value={offer.condition} onChange={(e) => updateOffer(i, "condition", e.target.value)} /></div>
+                    <div className="flex-1"><Label className="text-xs">Code</Label><Input value={offer.code} onChange={(e) => updateOffer(i, "code", e.target.value)} /></div>
                     <Button variant="ghost" size="icon" onClick={() => removeOffer(i)}><Trash2 className="h-3.5 w-3.5" /></Button>
                   </div>
                 ))}
@@ -356,9 +227,7 @@ export default function Products() {
                   <td className="p-3 text-muted-foreground">{p.category}</td>
                   <td className="p-3 text-right font-heading">₹{p.price.toLocaleString()}</td>
                   <td className="p-3 text-right text-muted-foreground line-through">₹{p.originalPrice.toLocaleString()}</td>
-                  <td className="p-3 text-center">
-                    <span className="text-xs text-muted-foreground">{p.sizes.length} sizes</span>
-                  </td>
+                  <td className="p-3 text-center"><span className="text-xs text-muted-foreground">{p.sizes.length} sizes</span></td>
                   <td className="p-3 text-right">{p.stock}</td>
                   <td className="p-3 text-center">
                     <span className={`inline-block px-2 py-0.5 text-xs rounded-full border ${p.active ? "bg-success/10 text-success border-success/20" : "bg-muted text-muted-foreground border-border"}`}>
@@ -396,15 +265,11 @@ export default function Products() {
                         <div>
                           <h4 className="font-heading text-xs uppercase tracking-wider text-muted-foreground mb-2">Sizes & Offers</h4>
                           <div className="flex flex-wrap gap-1 mb-3">
-                            {p.sizes.map((s) => (
-                              <Badge key={s} variant="outline" className="text-xs">{s}</Badge>
-                            ))}
+                            {p.sizes.map((s) => (<Badge key={s} variant="outline" className="text-xs">{s}</Badge>))}
                           </div>
                           {p.offers.length > 0 && (
                             <div className="space-y-1">
-                              {p.offers.map((o, i) => (
-                                <p key={i} className="text-xs"><span className="font-medium">{o.amount}</span> — {o.condition} ({o.code})</p>
-                              ))}
+                              {p.offers.map((o, i) => (<p key={i} className="text-xs"><span className="font-medium">{o.amount}</span> — {o.condition} ({o.code})</p>))}
                             </div>
                           )}
                         </div>
