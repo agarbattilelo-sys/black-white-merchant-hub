@@ -14,6 +14,7 @@ import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
 import Categories from "./pages/Categories";
 import CategorySlider from "./pages/CategorySlider";
+import Announcements from "./pages/Announcements";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({});
