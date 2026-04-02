@@ -115,7 +115,7 @@ export default function Products() {
                     <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
                       <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                       <SelectContent>
-                        {["T-Shirts", "Pants", "Jackets", "Footwear", "Hoodies", "Shirts", "Denim", "Accessories"].map((c) => (
+                        {allCategoryNames.map((c) => (
                           <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
                       </SelectContent>
