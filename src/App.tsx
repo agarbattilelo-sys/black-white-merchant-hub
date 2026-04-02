@@ -12,6 +12,7 @@ import Banners from "./pages/Banners";
 import CollectionBanners from "./pages/CollectionBanners";
 import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
+import Categories from "./pages/Categories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({});
