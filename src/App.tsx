@@ -13,6 +13,7 @@ import CollectionBanners from "./pages/CollectionBanners";
 import NewReleases from "./pages/NewReleases";
 import Orders from "./pages/Orders";
 import Categories from "./pages/Categories";
+import CategorySlider from "./pages/CategorySlider";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({});
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/new-releases" element={<NewReleases />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/categories" element={<Categories />} />
+              <Route path="/category-slider" element={<CategorySlider />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AdminLayout>
