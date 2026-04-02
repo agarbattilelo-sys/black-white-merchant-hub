@@ -1,4 +1,4 @@
-import { Package, Instagram, Image, Sparkles, ShoppingCart, LayoutDashboard, Layers, Grid3X3, SlidersHorizontal } from "lucide-react";
+import { Package, Instagram, Image, Sparkles, ShoppingCart, LayoutDashboard, Layers, Grid3X3, SlidersHorizontal, Megaphone } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
