@@ -27,6 +27,7 @@ const emptyProduct: Omit<Product, "id"> = {
 
 export default function Products() {
   const { products, setProducts } = useProducts();
+  const { allCategoryNames } = useCategorySlider();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState<Omit<Product, "id">>(emptyProduct);
